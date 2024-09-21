@@ -10,17 +10,20 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.6
-  auto_route: ^8.1.4
+  auto_route: 8.0.0
   riverpod: ^2.5.1
   flutter_bloc: ^8.1.6
   flutter_svg: ^2.0.10+1
   equatable: ^2.0.5
+  smooth_page_indicator: ^1.2.0+3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   flutter_lints: ^3.0.0
+  build_runner: ^2.4.9
+  auto_route_generator: ^8.0.0
 
 flutter:
   uses-material-design: true
@@ -29,7 +32,7 @@ flutter:
     - assets/images/
     - assets/icons/
 
-  fonts:
-    - family: Schyler
-      fonts:
-        - asset: fonts/Schyler-Regular.ttf
+  # fonts:
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
