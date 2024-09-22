@@ -52,14 +52,14 @@ class _RecreationAreaCardWidgetState extends State<RecreationAreaCardWidget> {
             children: [
               AspectRatio(
                 aspectRatio: 1,
-                child: PageView.builder(
-                  controller: _pageCtrl,
-                  itemCount: _recreationArea.photos.length,
-                  itemBuilder: (context, index) {
-                    return Stack(
-                      alignment: Alignment.bottomCenter,
-                      children: [
-                        AspectRatio(
+                child: Stack(
+                  alignment: Alignment.bottomCenter,
+                  children: [
+                    PageView.builder(
+                      controller: _pageCtrl,
+                      itemCount: _recreationArea.photos.length,
+                      itemBuilder: (context, index) {
+                        return AspectRatio(
                           aspectRatio: 1,
                           child: ClipRRect(
                             borderRadius: const BorderRadius.vertical(
@@ -70,45 +70,45 @@ class _RecreationAreaCardWidgetState extends State<RecreationAreaCardWidget> {
                               fit: BoxFit.cover,
                             ),
                           ),
+                        );
+                      },
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 16),
+                      child: SmoothPageIndicator(
+                        controller: _pageCtrl,
+                        count: _recreationArea.photos.length,
+                        effect: const ScrollingDotsEffect(
+                          dotWidth: 8,
+                          dotHeight: 8,
+                          dotColor: AppColors.white,
+                          activeDotColor: AppColors.white,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 16),
-                          child: SmoothPageIndicator(
-                            controller: _pageCtrl,
-                            count: _recreationArea.photos.length,
-                            effect: const ScrollingDotsEffect(
-                              dotWidth: 8,
-                              dotHeight: 8,
-                              dotColor: AppColors.white,
-                              activeDotColor: AppColors.white,
-                            ),
-                          ),
+                      ),
+                    ),
+                    Positioned(
+                      top: 20,
+                      right: 20,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 4,
                         ),
-                        Positioned(
-                          top: 20,
-                          right: 20,
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 8,
-                              vertical: 4,
-                            ),
-                            decoration: BoxDecoration(
-                              color: AppColors.white,
-                              borderRadius: BorderRadius.circular(100),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                SvgPicture.asset(Assets.send),
-                                const SizedBox(width: 6),
-                                const Text('888 км'),
-                              ],
-                            ),
-                          ),
+                        decoration: BoxDecoration(
+                          color: AppColors.white,
+                          borderRadius: BorderRadius.circular(100),
                         ),
-                      ],
-                    );
-                  },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SvgPicture.asset(Assets.send),
+                            const SizedBox(width: 6),
+                            const Text('888 км'),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               Padding(

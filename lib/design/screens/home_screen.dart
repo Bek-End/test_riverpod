@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:test_riverpod/common/constant/app_colors.dart';
 import 'package:test_riverpod/common/constant/assets.dart';
@@ -8,6 +7,9 @@ import 'package:test_riverpod/data/models/bed_place_model.dart';
 import 'package:test_riverpod/data/models/entertainment_model.dart';
 import 'package:test_riverpod/data/models/facility_model.dart';
 import 'package:test_riverpod/data/models/recreation_area_model.dart';
+import 'package:test_riverpod/design/widgets/bottom_sheet_with_header.dart';
+import 'package:test_riverpod/design/widgets/circle_icon_widget.dart';
+import 'package:test_riverpod/design/widgets/filter_widget.dart';
 import 'package:test_riverpod/design/widgets/recreation_area_card_widget.dart';
 import 'package:test_riverpod/design/widgets/text_form_field_widget.dart';
 
@@ -50,13 +52,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   const SizedBox(width: 12),
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: const BoxDecoration(
-                      color: AppColors.black,
-                      shape: BoxShape.circle,
+                  CircleIconWidget(
+                    icon: Assets.filter,
+                    onTap: () => BottomSheetWithHeader.show(
+                      context: context,
+                      child: const FilterWidget(),
                     ),
-                    child: SvgPicture.asset(Assets.filter),
                   ),
                 ],
               ),

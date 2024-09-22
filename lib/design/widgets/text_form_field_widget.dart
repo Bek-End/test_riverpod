@@ -5,6 +5,7 @@ class TextFormFieldWidget extends StatelessWidget {
   const TextFormFieldWidget({
     super.key,
     required this.controller,
+    this.readOnly = false,
     this.hintText,
     this.prefixIcon,
     this.suffixIcon,
@@ -14,6 +15,7 @@ class TextFormFieldWidget extends StatelessWidget {
   final String? hintText;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
+  final bool readOnly;
 
   InputBorder get _border => OutlineInputBorder(
         borderRadius: BorderRadius.circular(8),
@@ -24,6 +26,7 @@ class TextFormFieldWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
+      readOnly: readOnly,
       decoration: InputDecoration(
         hintText: hintText,
         prefixIcon: prefixIcon,

@@ -1,7 +1,6 @@
-<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="40" height="40" fill="white"/>
-<rect x="10.8" y="7.8" width="18.4" height="18.4" rx="2.05714" stroke="#181818" stroke-width="1.6"/>
-<path d="M20 26.9999V32.7142" stroke="#181818" stroke-width="1.6"/>
-<path d="M17.1429 31.9999H22.8571" stroke="#181818" stroke-width="1.6"/>
-<path d="M17.1429 22.7142V18.4285M17.1429 18.4285V12.14C17.1429 12.0626 17.2056 11.9999 17.2829 11.9999H21.0714C22.8466 11.9999 24.2857 13.439 24.2857 15.2142V15.2142C24.2857 16.9894 22.8466 18.4285 21.0714 18.4285H17.1429Z" stroke="#181818" stroke-width="1.6"/>
+<svg width="20" height="26" viewBox="0 0 20 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.8" y="0.8" width="18.4" height="18.4" rx="2.05714" stroke="#181818" stroke-width="1.6"/>
+<path d="M10 19.9999V25.7142" stroke="#181818" stroke-width="1.6"/>
+<path d="M7.14288 24.9999H12.8572" stroke="#181818" stroke-width="1.6"/>
+<path d="M7.14288 15.7142V11.4285M7.14288 11.4285V5.14C7.14288 5.06264 7.20559 4.99994 7.28294 4.99994H11.0715C12.8467 4.99994 14.2857 6.43902 14.2857 8.21422V8.21422C14.2857 9.98943 12.8467 11.4285 11.0715 11.4285H7.14288Z" stroke="#181818" stroke-width="1.6"/>
 </svg>

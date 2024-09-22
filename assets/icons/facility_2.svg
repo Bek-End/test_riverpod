@@ -1,9 +1,8 @@
-<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="40" height="40" fill="white"/>
-<mask id="path-1-inside-1_2388_4427" fill="white">
-<rect x="5.99998" y="12.4286" width="28.5714" height="17.1429" rx="1.42857"/>
+<svg width="29" height="30" viewBox="0 0 29 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+<mask id="path-1-inside-1_3401_4461" fill="white">
+<rect y="7.42865" width="28.5714" height="17.1429" rx="1.42857"/>
 </mask>
-<rect x="5.99998" y="12.4286" width="28.5714" height="17.1429" rx="1.42857" stroke="#181818" stroke-width="3.2" mask="url(#path-1-inside-1_2388_4427)"/>
-<path d="M20.2858 33.5V29.5714M11.7143 33.5H28.8572" stroke="#181818" stroke-width="1.6"/>
-<path d="M15.2857 5.99997L19.9286 13.5M23.8571 8.14283L21 13.1428" stroke="#181818" stroke-width="1.6"/>
+<rect y="7.42865" width="28.5714" height="17.1429" rx="1.42857" stroke="#181818" stroke-width="3.2" mask="url(#path-1-inside-1_3401_4461)"/>
+<path d="M14.2857 28.5V24.5714M5.71429 28.5H22.8572" stroke="#181818" stroke-width="1.6"/>
+<path d="M9.28571 1L13.9286 8.50001M17.8571 3.14286L15 8.14286" stroke="#181818" stroke-width="1.6"/>
 </svg>
