@@ -42,7 +42,7 @@ class BottomSheetWithHeader extends StatelessWidget {
               minWidth: size.width,
               maxHeight: size.height * 0.9,
             ),
-            child: Container(
+            child: DecoratedBox(
               decoration: const BoxDecoration(
                 color: AppColors.white,
                 borderRadius: BorderRadius.vertical(

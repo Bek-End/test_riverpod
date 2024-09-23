@@ -5,6 +5,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:test_riverpod/common/constant/app_colors.dart';
 import 'package:test_riverpod/common/constant/app_text_styles.dart';
 import 'package:test_riverpod/common/constant/assets.dart';
+import 'package:test_riverpod/common/extentions/string_extentions.dart';
 import 'package:test_riverpod/common/router/app_router.gr.dart';
 import 'package:test_riverpod/domain/entities/recreation_area_entity.dart';
 
@@ -139,7 +140,7 @@ class _RecreationAreaCardWidgetState extends State<RecreationAreaCardWidget> {
                           style: AppTextStyles.p,
                         ),
                         Text(
-                          'от ${_recreationArea.price.toInt()} ₽',
+                          'от ${_recreationArea.price.toInt().toString().addSeparator()} ₽',
                           style: AppTextStyles.button,
                         ),
                       ],

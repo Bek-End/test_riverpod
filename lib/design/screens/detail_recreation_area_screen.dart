@@ -5,6 +5,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:test_riverpod/common/constant/app_colors.dart';
 import 'package:test_riverpod/common/constant/app_text_styles.dart';
 import 'package:test_riverpod/common/constant/assets.dart';
+import 'package:test_riverpod/common/extentions/string_extentions.dart';
 import 'package:test_riverpod/design/widgets/circle_icon_widget.dart';
 import 'package:test_riverpod/domain/entities/recreation_area_entity.dart';
 
@@ -105,7 +106,7 @@ class _DetailRecreationAreaScreenState
                           const SizedBox(width: 12),
                           Expanded(
                             child: Text(
-                              _recreationArea.address,
+                              _recreationArea.address.replaceAll(',', ',\n'),
                               style: AppTextStyles.littleAddress,
                             ),
                           ),
@@ -238,7 +239,13 @@ class _DetailRecreationAreaScreenState
                             children: [
                               Row(
                                 children: [
-                                  SvgPicture.asset(item.urlIcon),
+                                  SizedBox(
+                                    width: 40,
+                                    height: 40,
+                                    child: Center(
+                                      child: SvgPicture.asset(item.urlIcon),
+                                    ),
+                                  ),
                                   const SizedBox(width: 8),
                                   Text(item.name, style: AppTextStyles.lable),
                                 ],
@@ -317,7 +324,7 @@ class _DetailRecreationAreaScreenState
                       style: AppTextStyles.p,
                     ),
                     Text(
-                      'от ${_recreationArea.price} ₽ ',
+                      'от ${_recreationArea.price.toInt().toString().addSeparator()} ₽ ',
                       style: AppTextStyles.button,
                     ),
                   ],

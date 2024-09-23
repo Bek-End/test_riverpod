@@ -31,6 +31,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
+        fontFamily: 'SF Pro Display',
         sliderTheme: const SliderThemeData(
           trackHeight: 1,
           thumbColor: AppColors.black,

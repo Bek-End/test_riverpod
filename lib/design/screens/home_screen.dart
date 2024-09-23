@@ -34,8 +34,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     return BlocBuilder<RecreationAreaBloc, RecreationAreaState>(
       builder: (context, state) {
         if (state is! RecreationAreaCompletedState) {
-          return Scaffold(
-            body: const Center(
+          return const Scaffold(
+            body: Center(
               child: CircularProgressIndicator(),
             ),
           );
@@ -144,31 +144,33 @@ class _Menu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(8),
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 4),
-        padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
-        decoration: BoxDecoration(
-          color: isChecked ? AppColors.black10 : Colors.transparent,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SizedBox(
-              width: 40,
-              height: 40,
-              child: Center(child: SvgPicture.asset(icon)),
-            ),
-            Text(
-              label,
-              style: AppTextStyles.little.copyWith(
-                color: isChecked ? AppColors.black : AppColors.black50,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 4),
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(8),
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+          decoration: BoxDecoration(
+            color: isChecked ? AppColors.black10 : Colors.transparent,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(
+                width: 40,
+                height: 40,
+                child: Center(child: SvgPicture.asset(icon)),
               ),
-            ),
-          ],
+              Text(
+                label,
+                style: AppTextStyles.little.copyWith(
+                  color: isChecked ? AppColors.black : AppColors.black50,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
