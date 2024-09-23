@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:test_riverpod/common/constant/app_colors.dart';
+import 'package:test_riverpod/common/constant/app_text_styles.dart';
 import 'package:test_riverpod/common/constant/assets.dart';
 import 'package:test_riverpod/common/router/app_router.gr.dart';
-import 'package:test_riverpod/data/models/recreation_area_model.dart';
+import 'package:test_riverpod/domain/entities/recreation_area_entity.dart';
 
 class RecreationAreaCardWidget extends StatefulWidget {
   const RecreationAreaCardWidget({
@@ -13,7 +14,7 @@ class RecreationAreaCardWidget extends StatefulWidget {
     required this.recreationArea,
   });
 
-  final RecreationAreaModel recreationArea;
+  final RecreationAreaEntity recreationArea;
 
   @override
   State<RecreationAreaCardWidget> createState() =>
@@ -23,7 +24,7 @@ class RecreationAreaCardWidget extends StatefulWidget {
 class _RecreationAreaCardWidgetState extends State<RecreationAreaCardWidget> {
   final _pageCtrl = PageController();
 
-  RecreationAreaModel get _recreationArea => widget.recreationArea;
+  RecreationAreaEntity get _recreationArea => widget.recreationArea;
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +104,7 @@ class _RecreationAreaCardWidgetState extends State<RecreationAreaCardWidget> {
                           children: [
                             SvgPicture.asset(Assets.send),
                             const SizedBox(width: 6),
-                            const Text('888 км'),
+                            const Text('888 км', style: AppTextStyles.lable),
                           ],
                         ),
                       ),
@@ -117,13 +118,16 @@ class _RecreationAreaCardWidgetState extends State<RecreationAreaCardWidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(_recreationArea.name),
+                    Text(_recreationArea.name, style: AppTextStyles.h3),
                     const SizedBox(height: 4),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text('8-10 июня'),
-                        Text('${_recreationArea.viewCount} просм'),
+                        const Text('8-10 июня', style: AppTextStyles.p),
+                        Text(
+                          '${_recreationArea.viewCount} просм',
+                          style: AppTextStyles.button,
+                        ),
                       ],
                     ),
                     const SizedBox(height: 4),
@@ -132,8 +136,12 @@ class _RecreationAreaCardWidgetState extends State<RecreationAreaCardWidget> {
                       children: [
                         Text(
                           '${_recreationArea.minPeopleCount}-${_recreationArea.maxPeopleCount} гостей',
+                          style: AppTextStyles.p,
                         ),
-                        Text('от ${_recreationArea.price} ₽'),
+                        Text(
+                          'от ${_recreationArea.price.toInt()} ₽',
+                          style: AppTextStyles.button,
+                        ),
                       ],
                     ),
                   ],

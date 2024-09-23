@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:test_riverpod/common/constant/app_colors.dart';
+import 'package:test_riverpod/common/di/bloc_scope.dart';
+import 'package:test_riverpod/common/di/di.dart';
 import 'package:test_riverpod/common/router/app_router.dart';
 
 void main() {
-  runApp(const MyApp());
+  DI.init();
+
+  runApp(const ProviderScope(
+    child: BlocScope(
+      child: MyApp(),
+    ),
+  ));
 }
 
 class MyApp extends StatefulWidget {

@@ -1,3 +1,4 @@
+import 'package:test_riverpod/common/enums/house_type.dart';
 import 'package:test_riverpod/data/models/bed_place_model.dart';
 import 'package:test_riverpod/data/models/entertainment_model.dart';
 import 'package:test_riverpod/data/models/facility_model.dart';
@@ -22,6 +23,7 @@ final _recreationAreaModel = RecreationAreaModel(
   info: 'На сообщения отвечает дольше других, связывайтесь по телефону',
   descr:
       'Единственный эко-отель в Башкирии и на всём Южном Урале, где можно пожить в настоящих башкирских юртах!\n\nМы ждем вас в гости с семьей или друзьями! Юрты, как и в древние времена, изготовлены из войлока и дерева, а для более комфортного проживания оборудованы печью-камином и электричеством. Они расположены на живописном берегу Нугушского водохранилища, вдали от повседневных забот, городского шума и суеты. Опыт проживания в юртах - это идеальный способ погрузиться за короткий срок в быт и культуру местного кочевого этноса - башкир.',
+  houseType: HouseType.house1,
   minPeopleCount: 6,
   maxPeopleCount: 12,
   entertainments: const [

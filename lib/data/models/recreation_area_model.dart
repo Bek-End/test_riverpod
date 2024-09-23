@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:test_riverpod/common/enums/house_type.dart';
 import 'package:test_riverpod/data/models/bed_place_model.dart';
 import 'package:test_riverpod/data/models/entertainment_model.dart';
 import 'package:test_riverpod/data/models/facility_model.dart';
@@ -13,6 +14,7 @@ class RecreationAreaModel extends Equatable {
     required this.address,
     required this.info,
     required this.descr,
+    required this.houseType,
     required this.minPeopleCount,
     required this.maxPeopleCount,
     required this.entertainments,
@@ -28,6 +30,7 @@ class RecreationAreaModel extends Equatable {
   final String address;
   final String info;
   final String descr;
+  final HouseType houseType;
   final int minPeopleCount;
   final int maxPeopleCount;
   final List<EntertainmentModel> entertainments;
@@ -44,6 +47,7 @@ class RecreationAreaModel extends Equatable {
         address,
         info,
         descr,
+        houseType,
         minPeopleCount,
         maxPeopleCount,
         entertainments,

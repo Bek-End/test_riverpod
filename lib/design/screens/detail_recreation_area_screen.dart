@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:test_riverpod/common/constant/app_colors.dart';
+import 'package:test_riverpod/common/constant/app_text_styles.dart';
 import 'package:test_riverpod/common/constant/assets.dart';
-import 'package:test_riverpod/data/models/recreation_area_model.dart';
 import 'package:test_riverpod/design/widgets/circle_icon_widget.dart';
+import 'package:test_riverpod/domain/entities/recreation_area_entity.dart';
 
 @RoutePage()
 class DetailRecreationAreaScreen extends StatefulWidget {
@@ -14,7 +15,7 @@ class DetailRecreationAreaScreen extends StatefulWidget {
     required this.recreationArea,
   });
 
-  final RecreationAreaModel recreationArea;
+  final RecreationAreaEntity recreationArea;
 
   @override
   State<DetailRecreationAreaScreen> createState() =>
@@ -25,7 +26,7 @@ class _DetailRecreationAreaScreenState
     extends State<DetailRecreationAreaScreen> {
   final _pageCtrl = PageController();
 
-  RecreationAreaModel get _recreationArea => widget.recreationArea;
+  RecreationAreaEntity get _recreationArea => widget.recreationArea;
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +96,7 @@ class _DetailRecreationAreaScreenState
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(_recreationArea.name),
+                      Text(_recreationArea.name, style: AppTextStyles.h2),
                       const SizedBox(height: 16),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -103,7 +104,10 @@ class _DetailRecreationAreaScreenState
                           Image.asset(Assets.mapImage),
                           const SizedBox(width: 12),
                           Expanded(
-                            child: Text(_recreationArea.address),
+                            child: Text(
+                              _recreationArea.address,
+                              style: AppTextStyles.littleAddress,
+                            ),
                           ),
                           const SizedBox(width: 96),
                           CircleIconWidget(icon: Assets.track, onTap: () {}),
@@ -131,7 +135,10 @@ class _DetailRecreationAreaScreenState
                                     children: [
                                       SvgPicture.asset(item.icon),
                                       const SizedBox(height: 8),
-                                      Text(item.label),
+                                      Text(
+                                        item.label,
+                                        style: AppTextStyles.lable,
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -150,23 +157,29 @@ class _DetailRecreationAreaScreenState
                           color: AppColors.black5,
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        child: Text(_recreationArea.info),
+                        child: Text(
+                          _recreationArea.info,
+                          style: AppTextStyles.p,
+                        ),
                       ),
                       const SizedBox(height: 20),
-                      Text(_recreationArea.descr),
+                      Text(
+                        _recreationArea.descr,
+                        style: AppTextStyles.p.copyWith(color: AppColors.black),
+                      ),
                       const SizedBox(height: 8),
                       InkWell(
                         onTap: () {},
-                        child: const Text('Подробнее'),
+                        child: const Text('Подробнее', style: AppTextStyles.p),
                       ),
                       const SizedBox(height: 32),
-                      const Text('Развлечения'),
+                      const Text('Развлечения', style: AppTextStyles.h2),
                       const SizedBox(height: 16),
                     ],
                   ),
                 ),
                 SizedBox(
-                  height: 174,
+                  height: 176,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: _recreationArea.entertainments.length,
@@ -188,7 +201,12 @@ class _DetailRecreationAreaScreenState
                               ),
                             ),
                             const SizedBox(height: 12),
-                            Text(item.name),
+                            Text(
+                              item.name,
+                              style: AppTextStyles.p.copyWith(
+                                color: AppColors.black,
+                              ),
+                            ),
                           ],
                         ),
                       );
@@ -202,7 +220,7 @@ class _DetailRecreationAreaScreenState
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const SizedBox(height: 32),
-                      const Text('Удобства'),
+                      const Text('Удобства', style: AppTextStyles.h2),
                       GridView.builder(
                         primary: false,
                         shrinkWrap: true,
@@ -222,7 +240,7 @@ class _DetailRecreationAreaScreenState
                                 children: [
                                   SvgPicture.asset(item.urlIcon),
                                   const SizedBox(width: 8),
-                                  Text(item.name),
+                                  Text(item.name, style: AppTextStyles.lable),
                                 ],
                               ),
                               const SizedBox(height: 8),
@@ -232,7 +250,7 @@ class _DetailRecreationAreaScreenState
                         },
                       ),
                       const SizedBox(height: 32),
-                      const Text('Спальные места'),
+                      const Text('Спальные места', style: AppTextStyles.h2),
                       const SizedBox(height: 20),
                       Column(
                         children: List.generate(
@@ -246,9 +264,20 @@ class _DetailRecreationAreaScreenState
                                   children: [
                                     SvgPicture.asset(item.urlIcon),
                                     const SizedBox(width: 8),
-                                    Expanded(child: Text(item.name)),
+                                    Expanded(
+                                        child: Text(
+                                      item.name,
+                                      style: AppTextStyles.p.copyWith(
+                                        color: AppColors.black,
+                                      ),
+                                    )),
                                     const SizedBox(width: 8),
-                                    Text('${item.count}'),
+                                    Text(
+                                      '${item.count}',
+                                      style: AppTextStyles.p.copyWith(
+                                        color: AppColors.black,
+                                      ),
+                                    ),
                                   ],
                                 ),
                                 const SizedBox(height: 8),
@@ -284,15 +313,27 @@ class _DetailRecreationAreaScreenState
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                        '${_recreationArea.minPeopleCount}-${_recreationArea.maxPeopleCount} гостей'),
-                    Text('от ${_recreationArea.price} ₽ '),
+                      '${_recreationArea.minPeopleCount}-${_recreationArea.maxPeopleCount} гостей',
+                      style: AppTextStyles.p,
+                    ),
+                    Text(
+                      'от ${_recreationArea.price} ₽ ',
+                      style: AppTextStyles.button,
+                    ),
                   ],
                 ),
                 const SizedBox(width: 24),
                 Expanded(
                   child: FilledButton(
                     onPressed: () {},
-                    child: const Center(child: Text('Забронировать')),
+                    child: Center(
+                      child: Text(
+                        'Забронировать',
+                        style: AppTextStyles.button.copyWith(
+                          color: AppColors.white,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ],

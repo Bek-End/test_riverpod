@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:test_riverpod/common/constant/app_colors.dart';
+import 'package:test_riverpod/common/constant/app_text_styles.dart';
 import 'package:test_riverpod/common/constant/assets.dart';
 import 'package:test_riverpod/design/widgets/bar_chart_widget.dart';
-import 'package:test_riverpod/design/widgets/text_form_field_widget.dart';
 
 class FilterWidget extends StatefulWidget {
   const FilterWidget({super.key});
@@ -14,8 +13,6 @@ class FilterWidget extends StatefulWidget {
 }
 
 class _FilterWidgetState extends State<FilterWidget> {
-  late final _dateCtrl = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     final mq = MediaQuery.of(context);
@@ -26,28 +23,27 @@ class _FilterWidgetState extends State<FilterWidget> {
             padding: mq.viewInsets + const EdgeInsets.fromLTRB(20, 16, 20, 24),
             shrinkWrap: true,
             children: [
-              const Text('Фильтры'),
+              const Text('Фильтры', style: AppTextStyles.h2),
               const SizedBox(height: 22),
-              const Text('Даты поездки (212)'),
+              const _RichText(title: 'Даты поездки', count: 212),
               const SizedBox(height: 16),
-              TextFormFieldWidget(
-                controller: _dateCtrl,
-                readOnly: true,
-                suffixIcon: InkWell(
-                  onTap: () {},
-                  child: SvgPicture.asset(Assets.calendar),
-                ),
-              ),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 12,
+                  horizontal: 16,
+                ),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(color: AppColors.black25),
                 ),
                 child: Row(
                   children: [
-                    const Text('Ближайшие'),
+                    const Expanded(
+                      child: Text(
+                        'Ближайшие',
+                        style: AppTextStyles.button,
+                      ),
+                    ),
                     const SizedBox(width: 12),
                     InkWell(
                       onTap: () {},
@@ -66,12 +62,17 @@ class _FilterWidgetState extends State<FilterWidget> {
                     isExpanded: true,
                     backgroundColor: AppColors.white,
                     headerBuilder: (context, isExpanded) {
-                      return const Column(
+                      return Column(
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Ценовой диапазон (12)'),
-                          Text('6 000 ₽ – 34 000 ₽'),
+                          const _RichText(title: 'Ценовой диапазон', count: 12),
+                          Text(
+                            '6 000 ₽ – 34 000 ₽',
+                            style: AppTextStyles.p.copyWith(
+                              color: AppColors.black,
+                            ),
+                          ),
                         ],
                       );
                     },
@@ -100,13 +101,18 @@ class _FilterWidgetState extends State<FilterWidget> {
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text('Отдаленость (12)'),
+                          const _RichText(title: 'Отдаленость', count: 12),
                           Row(
                             children: [
                               SvgPicture.asset(Assets.send,
                                   width: 12, height: 12),
                               const SizedBox(width: 8),
-                              const Text('300 км'),
+                              Text(
+                                '300 км',
+                                style: AppTextStyles.p.copyWith(
+                                  color: AppColors.black,
+                                ),
+                              ),
                             ],
                           ),
                         ],
@@ -133,7 +139,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                     isExpanded: true,
                     backgroundColor: AppColors.white,
                     headerBuilder: (context, isExpanded) {
-                      return const Text('Удобства');
+                      return const Text('Дома', style: AppTextStyles.h3);
                     },
                     body: GridView.builder(
                       itemCount: Assets.houses.length,
@@ -172,7 +178,11 @@ class _FilterWidgetState extends State<FilterWidget> {
                                 ),
                               ),
                               const SizedBox(height: 4),
-                              const Text('A-Frame (12)'),
+                              const _RichText(
+                                title: 'A-Frame',
+                                count: 12,
+                                style: AppTextStyles.lable,
+                              ),
                             ],
                           ),
                         );
@@ -183,12 +193,17 @@ class _FilterWidgetState extends State<FilterWidget> {
                     isExpanded: true,
                     backgroundColor: AppColors.white,
                     headerBuilder: (context, isExpanded) {
-                      return const Column(
+                      return Column(
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Количество мест (12)'),
-                          Text('2 – 16'),
+                          const _RichText(title: 'Количество мест', count: 12),
+                          Text(
+                            '2 – 16',
+                            style: AppTextStyles.p.copyWith(
+                              color: AppColors.black,
+                            ),
+                          ),
                         ],
                       );
                     },
@@ -215,7 +230,14 @@ class _FilterWidgetState extends State<FilterWidget> {
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            const Expanded(child: Text('Место для младенца')),
+                            Expanded(
+                              child: Text(
+                                'Место для младенца',
+                                style: AppTextStyles.p.copyWith(
+                                  color: AppColors.black,
+                                ),
+                              ),
+                            ),
                             FittedBox(
                               child: SizedBox(
                                 width: 97,
@@ -225,7 +247,12 @@ class _FilterWidgetState extends State<FilterWidget> {
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     SvgPicture.asset(Assets.divideCircle),
-                                    const Text('1'),
+                                    Text(
+                                      '1',
+                                      style: AppTextStyles.p.copyWith(
+                                        color: AppColors.black,
+                                      ),
+                                    ),
                                     SvgPicture.asset(Assets.plusCircle),
                                   ],
                                 ),
@@ -240,7 +267,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                     isExpanded: true,
                     backgroundColor: AppColors.white,
                     headerBuilder: (context, isExpanded) {
-                      return const Text('Удобства');
+                      return const Text('Удобства', style: AppTextStyles.h3);
                     },
                     body: GridView.builder(
                       itemCount: Assets.facilities.length,
@@ -279,7 +306,11 @@ class _FilterWidgetState extends State<FilterWidget> {
                                 ),
                               ),
                               const SizedBox(height: 4),
-                              const Text('Мангал (12)'),
+                              const _RichText(
+                                title: 'Мангал',
+                                count: 12,
+                                style: AppTextStyles.lable,
+                              ),
                             ],
                           ),
                         );
@@ -290,7 +321,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                     isExpanded: true,
                     backgroundColor: AppColors.white,
                     headerBuilder: (context, isExpanded) {
-                      return const Text('Развлечения');
+                      return const Text('Развлечения', style: AppTextStyles.h3);
                     },
                     body: GridView.builder(
                       itemCount: Assets.images.length,
@@ -312,7 +343,11 @@ class _FilterWidgetState extends State<FilterWidget> {
                                 fit: BoxFit.fitWidth,
                               ),
                               const SizedBox(height: 12),
-                              const Text('Джакузи (0)')
+                              const _RichText(
+                                title: 'Джакузи',
+                                count: 0,
+                                style: AppTextStyles.lable,
+                              ),
                             ],
                           );
                         }
@@ -329,7 +364,11 @@ class _FilterWidgetState extends State<FilterWidget> {
                             children: [
                               Image.asset(Assets.images[index]),
                               const SizedBox(height: 16),
-                              const Text('Водоем (12)'),
+                              const _RichText(
+                                title: 'Водоем',
+                                count: 12,
+                                style: AppTextStyles.lable,
+                              ),
                             ],
                           ),
                         );
@@ -355,18 +394,55 @@ class _FilterWidgetState extends State<FilterWidget> {
           ),
           child: Row(
             children: [
-              const Text('Очистить'),
+              const Text('Очистить', style: AppTextStyles.p),
               const SizedBox(width: 24),
               Expanded(
                 child: FilledButton(
                   onPressed: () {},
-                  child: const Center(child: Text('Показать 12 вариантов')),
+                  child: Center(
+                    child: Text(
+                      'Показать 12 вариантов',
+                      style: AppTextStyles.button.copyWith(
+                        color: AppColors.white,
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ],
           ),
         ),
       ],
+    );
+  }
+}
+
+class _RichText extends StatelessWidget {
+  const _RichText({
+    required this.title,
+    required this.count,
+    this.style,
+  });
+
+  final String title;
+  final int count;
+  final TextStyle? style;
+
+  @override
+  Widget build(BuildContext context) {
+    return RichText(
+      text: TextSpan(
+        text: title,
+        style: style ?? AppTextStyles.h3.copyWith(color: AppColors.black),
+        children: [
+          TextSpan(
+            text: ' ($count)',
+            style: (style ?? AppTextStyles.h3).copyWith(
+              color: AppColors.black50,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

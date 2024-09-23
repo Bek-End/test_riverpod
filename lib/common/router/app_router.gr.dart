@@ -10,10 +10,11 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i3;
 import 'package:flutter/material.dart' as _i4;
-import 'package:test_riverpod/data/models/recreation_area_model.dart' as _i5;
 import 'package:test_riverpod/design/screens/detail_recreation_area_screen.dart'
     as _i1;
 import 'package:test_riverpod/design/screens/home_screen.dart' as _i2;
+import 'package:test_riverpod/domain/entities/recreation_area_entity.dart'
+    as _i5;
 
 abstract class $AppRouter extends _i3.RootStackRouter {
   $AppRouter({super.navigatorKey});
@@ -45,7 +46,7 @@ class DetailRecreationAreaRoute
     extends _i3.PageRouteInfo<DetailRecreationAreaRouteArgs> {
   DetailRecreationAreaRoute({
     _i4.Key? key,
-    required _i5.RecreationAreaModel recreationArea,
+    required _i5.RecreationAreaEntity recreationArea,
     List<_i3.PageRouteInfo>? children,
   }) : super(
           DetailRecreationAreaRoute.name,
@@ -70,7 +71,7 @@ class DetailRecreationAreaRouteArgs {
 
   final _i4.Key? key;
 
-  final _i5.RecreationAreaModel recreationArea;
+  final _i5.RecreationAreaEntity recreationArea;
 
   @override
   String toString() {

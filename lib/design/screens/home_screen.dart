@@ -1,12 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:test_riverpod/common/constant/app_colors.dart';
+import 'package:test_riverpod/common/constant/app_text_styles.dart';
 import 'package:test_riverpod/common/constant/assets.dart';
-import 'package:test_riverpod/data/models/bed_place_model.dart';
-import 'package:test_riverpod/data/models/entertainment_model.dart';
-import 'package:test_riverpod/data/models/facility_model.dart';
-import 'package:test_riverpod/data/models/recreation_area_model.dart';
+import 'package:test_riverpod/common/enums/house_type.dart';
+import 'package:test_riverpod/design/logic/recreation_area/recreation_area_bloc.dart';
 import 'package:test_riverpod/design/widgets/bottom_sheet_with_header.dart';
 import 'package:test_riverpod/design/widgets/circle_icon_widget.dart';
 import 'package:test_riverpod/design/widgets/filter_widget.dart';
@@ -14,102 +15,116 @@ import 'package:test_riverpod/design/widgets/recreation_area_card_widget.dart';
 import 'package:test_riverpod/design/widgets/text_form_field_widget.dart';
 
 @RoutePage()
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-  final _searchCtrl = TextEditingController();
+class _HomeScreenState extends ConsumerState<HomeScreen> {
+  late final _searchCtrl = TextEditingController()..addListener(_listen);
+
+  void _listen() {}
 
   int _currMenuIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(28, 4, 20, 12),
-              child: Row(
-                children: [
-                  SvgPicture.asset(Assets.menu),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: SizedBox(
-                      height: 48,
-                      child: TextFormFieldWidget(
-                        controller: _searchCtrl,
-                        hintText: 'Поиск',
-                        prefixIcon: Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: SvgPicture.asset(Assets.search),
+    return BlocBuilder<RecreationAreaBloc, RecreationAreaState>(
+      builder: (context, state) {
+        if (state is! RecreationAreaCompletedState) {
+          return Scaffold(
+            body: const Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        }
+
+        return Scaffold(
+          body: SafeArea(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(28, 4, 20, 12),
+                  child: Row(
+                    children: [
+                      SvgPicture.asset(Assets.menu),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: SizedBox(
+                          height: 48,
+                          child: TextFormFieldWidget(
+                            controller: _searchCtrl,
+                            hintText: 'Поиск',
+                            prefixIcon: Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: SvgPicture.asset(Assets.search),
+                            ),
+                          ),
                         ),
+                      ),
+                      const SizedBox(width: 12),
+                      CircleIconWidget(
+                        icon: Assets.filter,
+                        onTap: () => BottomSheetWithHeader.show(
+                          context: context,
+                          child: const FilterWidget(),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: FittedBox(
+                    child: Row(
+                      children: List.generate(
+                        HouseType.values.length,
+                        (index) {
+                          final item = HouseType.values[index];
+                          return _Menu(
+                            onTap: () => setState(() => _currMenuIndex = index),
+                            icon: item.icon,
+                            label: item.label,
+                            isChecked: _currMenuIndex == index,
+                          );
+                        },
                       ),
                     ),
                   ),
-                  const SizedBox(width: 12),
-                  CircleIconWidget(
-                    icon: Assets.filter,
-                    onTap: () => BottomSheetWithHeader.show(
-                      context: context,
-                      child: const FilterWidget(),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: FittedBox(
-                child: Row(
-                  children: List.generate(
-                    _MenuType.values.length,
-                    (index) {
-                      final item = _MenuType.values[index];
-                      return _Menu(
-                        onTap: () => setState(() => _currMenuIndex = index),
-                        icon: item.icon,
-                        label: item.label,
-                        isChecked: _currMenuIndex == index,
+                ),
+                const SizedBox(height: 12),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: state.recreationAreas.length,
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    itemBuilder: (context, index) {
+                      return RecreationAreaCardWidget(
+                        recreationArea: state.recreationAreas[index],
                       );
                     },
                   ),
                 ),
-              ),
+              ],
             ),
-            const SizedBox(height: 12),
-            Expanded(
-              child: ListView.builder(
-                itemCount: 3,
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                itemBuilder: (context, index) {
-                  return RecreationAreaCardWidget(
-                    recreationArea: _recreationAreaModel,
-                  );
-                },
-              ),
-            ),
-          ],
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: ClipRRect(
-        borderRadius: BorderRadius.circular(100),
-        child: FloatingActionButton.extended(
-          backgroundColor: AppColors.black,
-          onPressed: () {},
-          label: const Text(
-            'На карте',
-            style:
-                TextStyle(color: AppColors.white), // TODO remove static style
           ),
-          icon: SvgPicture.asset(Assets.map),
-        ),
-      ),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerFloat,
+          floatingActionButton: ClipRRect(
+            borderRadius: BorderRadius.circular(100),
+            child: FloatingActionButton.extended(
+              backgroundColor: AppColors.black,
+              onPressed: () {},
+              label: Text(
+                'На карте',
+                style: AppTextStyles.button.copyWith(color: AppColors.white),
+              ),
+              icon: SvgPicture.asset(Assets.map),
+            ),
+          ),
+        );
+      },
     );
   }
 }
@@ -147,120 +162,15 @@ class _Menu extends StatelessWidget {
               height: 40,
               child: Center(child: SvgPicture.asset(icon)),
             ),
-            Text(label),
+            Text(
+              label,
+              style: AppTextStyles.little.copyWith(
+                color: isChecked ? AppColors.black : AppColors.black50,
+              ),
+            ),
           ],
         ),
       ),
     );
   }
 }
-
-enum _MenuType { all, house1, glamping, house2 }
-
-extension _MenuTypeExtentions on _MenuType {
-  String get icon {
-    switch (this) {
-      case _MenuType.all:
-        return Assets.menu2;
-      case _MenuType.house1:
-        return Assets.houses[1];
-      case _MenuType.glamping:
-        return Assets.houses[1];
-      case _MenuType.house2:
-        return Assets.houses[2];
-    }
-  }
-
-  String get label {
-    switch (this) {
-      case _MenuType.all:
-        return 'Все';
-      case _MenuType.house1:
-        return 'Кэмпинги';
-      case _MenuType.glamping:
-        return 'Глэмпинги';
-      case _MenuType.house2:
-        return 'Базы отдыха';
-    }
-  }
-}
-
-final _recreationAreaModel = RecreationAreaModel(
-  id: 'id',
-  name: 'Этнопарк INAYA',
-  photos: List.generate(6, (index) => 'assets/images/image.png'),
-  viewCount: 430,
-  price: 15000,
-  address: 'Республика Башкортостан, Мелеузовский район, д. Сергеевка • 831 км',
-  info: 'На сообщения отвечает дольше других, связывайтесь по телефону',
-  descr:
-      'Единственный эко-отель в Башкирии и на всём Южном Урале, где можно пожить в настоящих башкирских юртах!\n\nМы ждем вас в гости с семьей или друзьями! Юрты, как и в древние времена, изготовлены из войлока и дерева, а для более комфортного проживания оборудованы печью-камином и электричеством. Они расположены на живописном берегу Нугушского водохранилища, вдали от повседневных забот, городского шума и суеты. Опыт проживания в юртах - это идеальный способ погрузиться за короткий срок в быт и культуру местного кочевого этноса - башкир.',
-  minPeopleCount: 6,
-  maxPeopleCount: 12,
-  entertainments: const [
-    EntertainmentModel(
-      id: 'id0',
-      name: 'Конные прогулки',
-      urlMedia: 'assets/images/image_6.png',
-      count: 1,
-    ),
-    EntertainmentModel(
-      id: 'id1',
-      name: 'Водоём',
-      urlMedia: 'assets/images/image_0.png',
-      count: 1,
-    ),
-    EntertainmentModel(
-      id: 'id2',
-      name: 'SUP-доски',
-      urlMedia: 'assets/images/image_5.png',
-      count: 1,
-    ),
-  ],
-  facilities: const [
-    FacilityModel(
-      id: 'id0',
-      name: 'Мангал',
-      urlIcon: 'assets/icons/facility_0.svg',
-      count: 1,
-    ),
-    FacilityModel(
-      id: 'id1',
-      name: 'Парковка',
-      urlIcon: 'assets/icons/facility_1.svg',
-      count: 1,
-    ),
-    FacilityModel(
-      id: 'id2',
-      name: 'ТВ',
-      urlIcon: 'assets/icons/facility_2.svg',
-      count: 1,
-    ),
-    FacilityModel(
-      id: 'id3',
-      name: 'Кондиционер',
-      urlIcon: 'assets/icons/facility_3.svg',
-      count: 1,
-    ),
-  ],
-  bedPlaces: const [
-    BedPlaceModel(
-      id: 'id0',
-      name: 'Двуспальная кровать',
-      urlIcon: 'assets/icons/double_bed.svg',
-      count: 3,
-    ),
-    BedPlaceModel(
-      id: 'id1',
-      name: 'Диван',
-      urlIcon: 'assets/icons/sofa.svg',
-      count: 1,
-    ),
-    BedPlaceModel(
-      id: 'id2',
-      name: 'Место для младенца',
-      urlIcon: 'assets/icons/baby_place.svg',
-      count: 1,
-    ),
-  ],
-);

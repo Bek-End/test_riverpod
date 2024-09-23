@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test_riverpod/common/constant/app_colors.dart';
+import 'package:test_riverpod/common/constant/app_text_styles.dart';
 
 class TextFormFieldWidget extends StatelessWidget {
   const TextFormFieldWidget({
@@ -29,6 +30,7 @@ class TextFormFieldWidget extends StatelessWidget {
       readOnly: readOnly,
       decoration: InputDecoration(
         hintText: hintText,
+        hintStyle: AppTextStyles.p,
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
         filled: true,
